@@ -1,17 +1,18 @@
 var express = require('express')
 var model = require('./model.js')
 var controller = require('./controller.js')
+var bodyParser = require('body-parser')
 var path = require('path')
 var app = express()
-
-// Configuration
-// app.use(express.bodyParser());
 
 // Static files (html/css/js)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Define the port to run on
 app.set('port', process.env.PORT || 3000);
+
+// Create application/json parser
+var jsonParser = bodyParser.json();
 
 // Home Page
 app.get('/', function (req, res) {
@@ -24,7 +25,7 @@ app.get('/target', function (req, res) {
 })
 
 // Route Establishes New Database
-app.get('/air',  function(req, res){
+app.get('/air', function(req, res){
   console.log("Here");
 	controller.connect(function(err){
     if(err)
@@ -39,8 +40,24 @@ app.get('/air',  function(req, res){
 })
 
 // Send Fake Test Data
-app.get('/heart',  function(req, res){
+app.get('/heart', function(req, res){
 	controller.heart_data(function(err,heartdata){
+		if(err)
+		{
+			console.log(err);
+		}
+		else{
+      console.log("Successfully Connected to Heart");
+      console.log(heartdata);
+			res.send('Hey There!');
+		}
+	});
+})
+
+// Send Fake Test Data
+app.post('/heartdata',  jsonParser, function(req, res){
+  console.log(req.body);
+	controller.heart_data(req.body,function(err,heartdata){
 		if(err)
 		{
 			console.log(err);
