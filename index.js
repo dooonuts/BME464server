@@ -11,8 +11,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Define the port to run on
 app.set('port', process.env.PORT || 3000);
 
-// Create application/json parser
-var jsonParser = bodyParser.json();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 // Home Page
 app.get('/', function (req, res) {
