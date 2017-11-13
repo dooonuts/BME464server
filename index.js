@@ -58,9 +58,11 @@ app.get('/heart', function(req, res){
 })
 
 // Send Fake Test Data
-app.post('/heartdata',  jsonParser, function(req, res){
+app.post('/heartdata', function(req, res){
   console.log(req.body);
-	controller.heart_data(req.body,function(err,heartdata){
+  console.log(req.body.string);
+  console.log(req.body.channel);
+	controller.heart_data(req.body.string,req.body.channel,function(err,heartdata){
 		if(err)
 		{
 			console.log(err);

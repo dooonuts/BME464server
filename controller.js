@@ -33,7 +33,7 @@ exports.connect =  function(callback){
   callback(null);
 }
 
-exports.heart_data = function(heart_string, callback){
+exports.heart_data = function(heart_string, heart_channel, callback){
   var connection = mysql.createConnection({
     host     : 'bme464.csqomiwkjysg.us-east-1.rds.amazonaws.com',
     port     : '3306',
@@ -45,7 +45,7 @@ exports.heart_data = function(heart_string, callback){
   var heartdata = {
     data : heart_string,
     time : (new Date()).toJSON(),
-    channel : 'LA'
+    channel : heart_channel
   }
 
   connection.query("INSERT INTO testdata SET ?", [heartdata], function(err, result){
