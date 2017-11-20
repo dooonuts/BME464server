@@ -58,5 +58,13 @@ exports.heart_data = function(heart_string, heart_channel, callback){
     console.log("Inserted Fake Information");
   });
 
+  connection.end(function(err){
+    if(err)
+    {
+      console.log(err);
+      console.error('error connecting: ' + err.stack);
+    }
+    console.log('Ended connection');
+  });
   callback(null,heartdata);
 }
