@@ -28,13 +28,17 @@ app.get('/target', function (req, res) {
 	res.send('Target!')
 })
 
-app.get('/dec',function(req,res){
-	hex_dec.dec("ajfljwe",function(err, decstring){
+// Testing HexDec function
+app.post('/dec',function(req,res){
+	inthex= req.body.hex;
+	console.log(req.body.hex)
+	hexdec.dec(inthex,function(err, decstring){
 		if(err)
 		{
 			console.log(err)
 		}
 		console.log(decstring);
+		res.send('Hello');
 	})
 })
 
@@ -54,7 +58,7 @@ app.get('/air', function(req, res){
   });
 })
 
-// 
+//
 app.get('/heart', function(req, res){
 	controller.heart_data(function(err,heartdata){
 		if(err)
