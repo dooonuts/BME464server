@@ -42,7 +42,7 @@ app.get('/air', function(req, res){
   });
 })
 
-// Send Fake Test Data
+// 
 app.get('/heart', function(req, res){
 	controller.heart_data(function(err,heartdata){
 		if(err)
