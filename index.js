@@ -1,6 +1,7 @@
 var express = require('express')
 var model = require('./model.js')
 var controller = require('./controller.js')
+var hexdec = require('./hexdec.js')
 var bodyParser = require('body-parser')
 var path = require('path')
 var app = express()
@@ -26,6 +27,17 @@ app.get('/', function (req, res) {
 app.get('/target', function (req, res) {
 	res.send('Target!')
 })
+
+app.get('/dec',function(req,res){
+	hex_dec.dec("ajfljwe",function(err, decstring){
+		if(err)
+		{
+			console.log(err)
+		}
+		console.log(decstring);
+	})
+})
+
 
 // Route Establishes New Database
 app.get('/air', function(req, res){
