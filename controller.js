@@ -33,6 +33,72 @@ exports.connect =  function(callback){
   callback(null);
 }
 
+exports.get_heart_params = function(callback){
+  var connection = mysql.createConnection({
+    host     : 'bme464.csqomiwkjysg.us-east-1.rds.amazonaws.com',
+    port     : '3306',
+    user     : 'wolf',
+    password : 'dUk3bme*',
+    database : 'heart_data'
+  });
+
+  connection.query("SELECT * FROM params", function(err, results, fields){
+    if(err) {
+      console.log('err');
+      console.error('error connecting: ' + err.stack);
+      callback(err);
+    }
+
+    console.log("Queried for Heart Parameters!");
+
+    connection.end(function(err){
+      if(err)
+      {
+        console.log(err);
+        console.error('error connecting: ' + err.stack);
+      }
+      console.log('Ended connection');
+      callback(null,results);
+    });
+  });
+}
+
+exports.post_heart_params = function(params,callback){
+  var connection = mysql.createConnection({
+    host     : 'bme464.csqomiwkjysg.us-east-1.rds.amazonaws.com',
+    port     : '3306',
+    user     : 'wolf',
+    password : 'dUk3bme*',
+    database : 'heart_data'
+  });
+
+  var heartparams = {
+    channel: params.channel,
+    time_duration: params.time_duration,
+    pulse_width_duration: params.pulse_width_duration,
+    pulse_amplitude: params.amplitude
+  }
+
+  connection.query("UPDATE params SET ?", [heartparams], function(err, result){
+    if(err) {
+      console.log('err');
+      console.error('error connecting: ' + err.stack);
+      callback(err);
+    }
+    console.log("Updated Parameters: " + heartparams);
+  });
+
+  connection.end(function(err){
+    if(err)
+    {
+      console.log(err);
+      console.error('error connecting: ' + err.stack);
+    }
+    console.log('Ended connection');
+  });
+  callback(null,heartparams);
+}
+
 exports.heart_data = function(heart_string, heart_channel, callback){
   var connection = mysql.createConnection({
     host     : 'bme464.csqomiwkjysg.us-east-1.rds.amazonaws.com',

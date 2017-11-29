@@ -42,7 +42,6 @@ app.post('/dec',function(req,res){
 	})
 })
 
-
 // Route Establishes New Database
 app.get('/air', function(req, res){
   console.log("Here");
@@ -58,17 +57,32 @@ app.get('/air', function(req, res){
   });
 })
 
-//
-app.get('/heart', function(req, res){
-	controller.heart_data(function(err,heartdata){
+// Route Queries for Heart Parameters
+app.get('/getparams', function(req, res){
+	controller.get_heart_params(function(err,params){
 		if(err)
 		{
 			console.log(err);
 		}
 		else{
-      console.log("Successfully Connected to Heart");
-      console.log(heartdata);
-			res.send('Hey There!');
+      console.log("Successfully Queried Parameters");
+      console.log(params);
+			res.send(params);
+		}
+	});
+})
+
+app.post('/setparams', function(req, res){
+  console.log(req.body);
+	controller.post_heart_params(req.body, function(err,params){
+		if(err)
+		{
+			console.log(err);
+		}
+		else{
+      console.log("Successfully Updated Parameters");
+      console.log(params);
+			res.send(params);
 		}
 	});
 })
