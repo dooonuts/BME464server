@@ -73,13 +73,10 @@ exports.post_heart_params = function(params,callback){
   });
 
   var heartparams = {
-    pace_channel: params.pace_channel,
-    record_channel: params.record_channel,
-    pace_duration: params.pace_duration,
-    record_duration: params.record_duration,
+    channel: params.channel,
+    time_duration: params.time_duration,
     pulse_width_duration: params.pulse_width_duration,
     pulse_amplitude: params.amplitude,
-    switch_to_test: params.switch_to_test
   }
 
   connection.query("UPDATE params SET ?", [heartparams], function(err, result){
