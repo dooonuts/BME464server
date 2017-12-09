@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
 
 // Data Page
 app.get('/data',function(req, res){
-	res.render('data.ejs')
+	res.render('html/data')
 })
 
 // Pace Page
