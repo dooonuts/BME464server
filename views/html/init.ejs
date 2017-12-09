@@ -60,7 +60,7 @@
 					<li> Type in channel 0 if don't want to pace or record </li>
 					<li> Type 1 into "Wake Up" </li>
 
-									<form method="post" action="#">
+									<form method="post" action="http://152.3.69.46:3000/testparams" id="form1">
 										<div class="row uniform">
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="channel_record" id="channel_record" value="" placeholder="Channel Number to Record" />
@@ -86,11 +86,10 @@
 											<div class="6u$ 12u$(xsmall)">
 												<input type="text" name="file_name" id="file_name" value="" placeholder="File Name" />
 											</div>
-
-									<ul class="actions" class ="align-center">
-										<li><a href="#" class="button special">Lock in data</a></li>
-
-									</ul>
+											<ul class="actions" class ="align-center">
+												<button type="submit" form="form1" value="Submit">Submit</button>
+											</ul>
+									</form>
 
 
 
