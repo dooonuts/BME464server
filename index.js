@@ -6,8 +6,11 @@ var bodyParser = require('body-parser')
 var path = require('path')
 var app = express()
 
+// Use the ejs templating engine
+app.set('view engine', 'ejs');
+
 // Static files (html/css/js)
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 
 // Define the port to run on
 app.set('port', process.env.PORT || 3000);
@@ -20,7 +23,7 @@ app.use(bodyParser.json());
 
 // Home Page
 app.get('/', function (req, res) {
- 	res.send('Hello Chris!')
+ 	res.render('html/index')
 })
 
 // Route Simply Contains a variable that sees how many times this is targeted
