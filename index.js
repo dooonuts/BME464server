@@ -31,9 +31,20 @@ app.get('/data',function(req, res){
 	res.render('html/data')
 })
 
+// Initialization Page
+app.get('/init',function(req, res){
+	res.render('html/init')
+})
+
 // Pace Page
+app.get('/pace',function(req, res){
+	res.render('html/pace')
+})
 
 // Record Page
+app.get('/record',function(req, res){
+	res.render('html/record')
+})
 
 // Testing HexDec function
 app.post('/dec',function(req,res){
