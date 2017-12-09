@@ -26,10 +26,14 @@ app.get('/', function (req, res) {
  	res.render('html/index')
 })
 
-// Route Simply Contains a variable that sees how many times this is targeted
-app.get('/target', function (req, res) {
-	res.send('Target!')
+// Data Page
+app.get('/data',function(req, res){
+	res.render('data.ejs')
 })
+
+// Pace Page
+
+// Record Page
 
 // Testing HexDec function
 app.post('/dec',function(req,res){
