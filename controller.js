@@ -73,8 +73,8 @@ exports.post_heart_params = function(params,callback){
   });
 
   var heartparams = {
-    pace_channel: params.channel,
-    pace_time_duration: params.time_duration,
+    pace_channel: params.pace_channel,
+    pace_time_duration: params.pace_time_duration,
     pulse_width_duration: params.pulse_width_duration,
     pulse_amplitude: params.amplitude,
     record_duration: params.record_duration,
