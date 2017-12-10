@@ -7,7 +7,9 @@ exports.dec = function(hex,callback){
 	for (i=0; i+3<hex.length; i = i+4){
 		console.log(hex.substring(i,i+4));
 		str = str + parseInt(hex.substring(i,i+4),16) + " ";
-		arr[i] = parseInt(hex.substring(i,i+4),16);
+		if (i%4==0){
+			arr[i] = parseInt(hex.substring(i,i+4),16);
+		}
 		j=j+1;
 	}
 	console.log("Printing string: " + str);
