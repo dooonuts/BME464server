@@ -31,6 +31,11 @@ app.get('/data',function(req, res){
 	res.render('html/data')
 })
 
+// Chart Page
+app.get('/chart',function(req, res){
+	res.render('html/chart')
+})
+
 // Initialization Page
 app.get('/init',function(req, res){
 	res.render('html/init')
