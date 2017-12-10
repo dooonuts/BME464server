@@ -90,6 +90,7 @@ app.get('/getparams', function(req, res){
 	});
 })
 
+// Set the Parameters
 app.post('/setparams', function(req, res){
   console.log(req.body);
 	controller.post_heart_params(req.body, function(err,params){
