@@ -56,15 +56,6 @@ exports.get_heart_params = function(callback){
     }
 
     console.log("Queried for Heart Parameters!");
-
-    connection.query("UPDATE params SET ?", [heartparams], function(err, result){
-      if(err) {
-        console.log('err');
-        console.error('error connecting: ' + err.stack);
-        callback(err);
-      }
-      console.log("Updated Parameters: " + heartparams);
-
       connection.end(function(err){
         if(err)
         {
@@ -73,7 +64,6 @@ exports.get_heart_params = function(callback){
         }
         console.log('Ended connection');
         callback(null,results);
-      });
     });
   });
 }
