@@ -35,45 +35,28 @@
 					<li><a href="#" class="button fit">Login</a></li>
 				</ul>
 			</nav>
-<!-- Table -->
+			<!-- Table -->
 									<h3>Data</h3>
 
-									<h4>Recent</h4>
+									<h4>Last Five</h4>
 									<div class="table-wrapper">
 										<table>
 											<thead>
 												<tr>
 													<th>Date</th>
 													<th>Description</th>
-													<th>Duration</th>
+													<th>Duration (Packet Size)</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>November 18th, 3:08PM</td>
-													<td>Recording of Channel 2</td>
-													<td>2 minutes</td>
-												</tr>
-												<tr>
-													<td>November 18th, 4:01 PM</td>
-													<td>Recording of Channel 4</td>
-													<td>5 minutes</td>
-												</tr>
-												<tr>
-													<td>November 18th, 4:32 PM</td>
-													<td> Recording of Channel 1</td>
-													<td>3 minutes</td>
-												</tr>
-												<tr>
-													<td>November 19th, 9:07 AM</td>
-													<td>Recording of Channel 3</td>
-													<td>1 minute</td>
-												</tr>
-												<tr>
-													<td>November 19th, 9:14 AM</td>
-													<td>Recording of Channel 3</td>
-													<td>4 minutes</td>
-												</tr>
+												<% for (var i=0;i<results.length; i++) { %>
+													<!-- <tr onclick="window.location ='/init';"> -->
+													<tr onclick="window.location ='<%=link[i]%>'; ">
+														<td><%= time[i] %></td>
+														<td><%= results[i].record_channel %></td>
+														<td><%= packet_size[i] %></td>
+													</tr>
+												<% } %>
 											</tbody>
 										</table>
 									</div>

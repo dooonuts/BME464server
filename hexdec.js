@@ -8,11 +8,9 @@ exports.dec = function(hex,callback){
 		console.log(hex.substring(i,i+4));
 		str = str + parseInt(hex.substring(i,i+4),16) + " ";
 		if (i%4==0){
-			arr[i] = parseInt(hex.substring(i,i+4),16);
+			arr[i/4] = parseInt(hex.substring(i,i+4),16);
 		}
 		j=j+1;
 	}
-	console.log("Printing string: " + str);
-	console.log("Printing array: " + arr);
-	callback(null, str);
+	callback(null, str, arr);
 }

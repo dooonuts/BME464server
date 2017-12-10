@@ -3,6 +3,7 @@ var model = require('./model.js')
 var controller = require('./controller.js')
 var hexdec = require('./hexdec.js')
 var bodyParser = require('body-parser')
+var dateformat = require('dateformat')
 var path = require('path')
 var app = express()
 
@@ -28,12 +29,40 @@ app.get('/', function (req, res) {
 
 // Data Page
 app.get('/data',function(req, res){
-	res.render('html/data')
+  controller.retreive_last_five(function(err, results){
+    if(err)
+    {
+      console.log(err);
+    }
+    console.log("Retrieved Last Five" + results);
+     var time = [];
+     var link = [];
+     var length = [];
+     for(var i = 0;i< results.length;i=i+1){
+       time[i] = dateformat(results[i].time, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
+       link[i] = "/data/" + results[i].event_id;
+       length[i] = results[i].data.length/4
+     }
+    res.render('html/data', {
+      results:results,
+      time:time,
+      link:link,
+      packet_size:length
+    });
+  })
 })
 
-// Chart Page
-app.get('/chart',function(req, res){
-	res.render('html/chart')
+// Charts for each set of data
+app.get('/data/:id', function(req,res){
+  console.log(req.params.id);
+  var id = req.params.id;
+  controller.retreive_data_by_id(id, function(err, results){
+    if(err){
+      console.log(err);
+    }
+    console.log("Retrieved: " + results);
+    res.send(results);
+  })
 })
 
 // Initialization Page
@@ -51,17 +80,47 @@ app.get('/record',function(req, res){
 	res.render('html/record')
 })
 
+// Testing Retrieving Last 5
+app.get('/test_last_five', function(req, res){
+    controller.retreive_last_five(function(err, results){
+      if(err)
+      {
+        console.log(err);
+      }
+      console.log("Retrieved Last Five" + results);
+      var time = [];
+      var data = [];
+      for(var i = 0;i< results.length;i=i+1){
+        time[i] = results[i].time;
+        data[i] = results[i].data;
+      }
+      // Use Array.concat to concatenate the strings of data
+      for(var j = 0; j< data.length;j=j+1){
+        hexdec.dec(data[j],function(err, decstring, decarray){
+      		if(err)
+      		{
+      			console.log(err);
+      		}
+      		console.log("Printing Decimal String: " + decstring);
+          console.log("Printing Decimal Array: " + decarray);
+      	})
+      }
+      res.send('Finished conversion from Hex to Decimal');
+    })
+})
+
 // Testing HexDec function
 app.post('/dec',function(req,res){
 	inthex= req.body.hex;
-	console.log(req.body.hex)
-	hexdec.dec(inthex,function(err, decstring){
+	console.log(req.body.hex);
+	hexdec.dec(inthex,function(err, decstring, decarray){
 		if(err)
 		{
 			console.log(err)
 		}
-		console.log(decstring);
-		res.send('Hello');
+		console.log("Printing Decimal String: " + decstring);
+    console.log("Printing Hex String: " + decstring);
+		res.send('Finished conversion from Hex to Decimal');
 	})
 })
 
@@ -111,7 +170,7 @@ app.post('/setparams', function(req, res){
 	});
 })
 
-// Send Fake Test Data
+// Send Real Data
 app.post('/heartdata', function(req, res){
   console.log(req.body);
   console.log(req.body.string);
@@ -124,7 +183,7 @@ app.post('/heartdata', function(req, res){
 		else{
       console.log("Successfully Connected to Heart");
       console.log(heartdata);
-			res.send('Hey There!');
+			res.send('Heart Data Stored');
 		}
 	});
 })
