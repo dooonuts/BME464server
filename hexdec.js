@@ -11,6 +11,6 @@ exports.dec = function(hex,callback){
 		j=j+1;
 	}
 	console.log("Printing string: " + str);
-	console.log("Printing array: " + array);
+	console.log("Printing array: " + arr);
 	callback(null, str);
 }
