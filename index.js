@@ -60,8 +60,18 @@ app.get('/data/:id', function(req,res){
     if(err){
       console.log(err);
     }
-    console.log("Retrieved: " + results);
-    res.send(results);
+    console.log("Retrieved: " + results[0].data);
+    hexdec.decpoints(results[0].data,function(err, datapoints){
+      if(err)
+      {
+        console.log(err);
+      }
+      console.log("Printing Decimal Array: " + datapoints);
+      res.render('html/charts', {
+        datapoints:datapoints
+      });
+    })
+    // res.send(results);
   })
 })
 
@@ -124,21 +134,6 @@ app.post('/dec',function(req,res){
 	})
 })
 
-// Route Establishes New Database
-app.get('/air', function(req, res){
-  console.log("Here");
-	controller.connect(function(err){
-    if(err)
-    {
-      console.log(err);
-    }
-    else{
-      console.log("Successfully Connected");
-      res.send('Hi!');
-    };
-  });
-})
-
 // Route Queries for Heart Parameters
 app.get('/getparams', function(req, res){
 	controller.get_heart_params(function(err,params){
@@ -165,7 +160,7 @@ app.post('/setparams', function(req, res){
 		else{
       console.log("Successfully Updated Parameters");
       console.log(params);
-			res.send(params);
+			res.render("html/params");
 		}
 	});
 })
